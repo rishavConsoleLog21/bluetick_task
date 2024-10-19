@@ -35,13 +35,13 @@ const UserTable: React.FC<UserTableProps> = ({ users }) => {
         <tbody>
           {users.map((user, index) => (
             <tr key={index}>
-              <td>{user.first_name}</td>
-              <td>{user.last_name}</td>
-              <td>{user.username}</td>
-              <td>{user.age}</td>
-              <td>{user.marital_status}</td>
-              <td>{user.is_employed ? "Yes" : "No"}</td>
-              <td>{user.is_founder ? "Yes" : "No"}</td>
+              <td data-label="First Name">{user.first_name}</td>
+              <td data-label="Last Name">{user.last_name}</td>
+              <td data-label="Username">{user.username}</td>
+              <td data-label="Age">{user.age}</td>
+              <td data-label="Marital Status">{user.marital_status}</td>
+              <td data-label="Employed">{user.is_employed ? "Yes" : "No"}</td>
+              <td data-label="Founder">{user.is_founder ? "Yes" : "No"}</td>
             </tr>
           ))}
         </tbody>

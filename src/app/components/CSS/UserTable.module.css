@@ -1,5 +1,3 @@
-/* UserTable.module.css */
-
 /* Container to keep the table responsive */
 .tableContainer {
   width: 100%;
@@ -12,17 +10,17 @@
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 2rem;
-  background-color: #daf6fc;
-  color: #000;
+  background-color: #f9f9f9; /* Light background for the table */
+  color: #333; /* Darker text for better readability */
   font-size: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Table Header */
 .responsiveTable thead th {
-  background-color: #7077A1; /* Aesthetic green color */
-  color: white;
-  padding: 12px 25px;
+  background-color: #4a90e2; /* Aesthetic header color */
+  color: #daf6fc;
+  padding: 12px 15px;
   text-align: left;
   font-weight: bold;
   text-transform: capitalize;
@@ -31,50 +29,63 @@
 /* Table Data */
 .responsiveTable tbody td {
   padding: 12px 15px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #daf6fc;
 }
 
 /* Add alternating background colors for rows */
 .responsiveTable tbody tr:nth-child(even) {
-  background-color: #daf6fc;
+  background-color: hsl(303, 100%, 96%); /* Slightly darker for better contrast */
 }
 
 /* Mobile Styles */
 @media (max-width: 768px) {
   .responsiveTable {
-    width: 100%;
     display: block;
+    width: 100%; /* Ensure full width for the container */
     overflow-x: auto;
-    border: 0;
   }
 
-  /* Responsive table styling for mobile */
+  /* Hide the header on mobile */
   .responsiveTable thead {
     display: none;
   }
 
   .responsiveTable tbody tr {
-    display: block;
+    display: flex; /* Use flexbox for better layout */
+    flex-direction: column; /* Stack items vertically */
     margin-bottom: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 12px;
-    background-color: white;
+    background-color: #daf6fc; /* Background color for mobile cards */
+    width: 100%; /* Make sure the card takes full width */
   }
 
   .responsiveTable tbody td {
-    display: block;
-    text-align: right;
-    padding-left: 50%;
+    display: block; /* Each cell takes full width */
+    text-align: left; /* Align text to the left */
+    padding: 8px; /* Padding for mobile */
     position: relative;
+    border: 1px solid #daf6fc; /* Added border for better separation */
+    border-radius: 8px; /* Added border-radius */
+    margin-bottom: 0.5rem; /* Space between fields */
+    width: 100%; /* Use full width */
+    word-break: break-word; /* Ensure long text breaks properly */
   }
 
   .responsiveTable tbody td::before {
     content: attr(data-label);
     position: absolute;
     left: 15px;
-    text-align: left;
+    top: 8px; /* Adjust to better align label */
     font-weight: bold;
-    text-transform: lowercase;
+    text-transform: capitalize;
+    color: #4a90e2; /* Color for labels */
+    font-size: 0.875rem; /* Slightly smaller font for labels */
+  }
+
+  /* Ensure proper padding and space between the label and the data */
+  .responsiveTable tbody td[data-label] {
+    padding-top: 24px; /* Add space above data for the label */
   }
 }
