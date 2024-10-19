@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import styles from "@/app/components/CSS/Home.module.css";
-import UserTable from "@/app/components/User/UserTable";
+import UserTable from "@/app/components/User/UserTable"; // Ensure these components handle editing and deleting
 import UserCard from "@/app/components/User/UserCard";
 import UserList from "@/app/components/User/UserList";
 import UserForm from "@/app/components/UserForm";
@@ -22,8 +22,8 @@ export default function Home() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<"table" | "card" | "list">("table");
+  const [editingUser, setEditingUser] = useState<User | null>(null); // Track the user being edited
 
-  // Fetch data from the API
   const fetchUsersData = useCallback(async () => {
     try {
       setLoading(true);
@@ -32,9 +32,10 @@ export default function Home() {
       );
       const data = await response.data;
       setUsers(data);
-      setLoading(false);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -42,7 +43,6 @@ export default function Home() {
     fetchUsersData();
   }, [fetchUsersData]);
 
-  // Function to add a new user
   const handleAddUser = (newUser: User) => {
     setUsers((prevUsers) => [...prevUsers, newUser]);
   };
@@ -53,14 +53,29 @@ export default function Home() {
     );
   };
 
+  const handleEditUser = (user: User) => {
+    setEditingUser(user); // Set the user to edit
+  };
+
+  const handleUpdateUser = (updatedUser: User) => {
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user.username === updatedUser.username ? updatedUser : user
+      )
+    );
+    setEditingUser(null); // Reset the editing user
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>User Data Display</h1>
 
-      {/* User Form to Add New Users */}
-      <UserForm onAddUser={handleAddUser} />
+      <UserForm
+        onAddUser={handleAddUser}
+        editingUser={editingUser}
+        onUpdateUser={handleUpdateUser}
+      />
 
-      {/* Buttons to switch view modes */}
       <div className={styles.buttonGroup}>
         <button
           className={viewMode === "table" ? styles.activeButton : styles.button}
@@ -82,7 +97,6 @@ export default function Home() {
         </button>
       </div>
 
-      {/* Conditional Rendering of User Data */}
       <div className={styles.content}>
         {loading ? (
           <p>Loading...</p>
@@ -91,7 +105,11 @@ export default function Home() {
             {viewMode === "table" && <UserTable users={users} />}
             {viewMode === "card" && <UserCard users={users} />}
             {viewMode === "list" && (
-              <UserList users={users} onDeleteUser={handleDeleteUser} />
+              <UserList
+                users={users}
+                onDeleteUser={handleDeleteUser}
+                onEditUser={handleEditUser}
+              />
             )}
           </>
         )}

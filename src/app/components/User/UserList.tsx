@@ -16,9 +16,14 @@ interface User {
 interface UserListProps {
   users: User[];
   onDeleteUser: (username: string) => void;
+  onEditUser: (user: User) => void;
 }
 
-const UserList: React.FC<UserListProps> = ({ users, onDeleteUser }) => {
+const UserList: React.FC<UserListProps> = ({
+  users,
+  onDeleteUser,
+  onEditUser,
+}) => {
   return (
     <div className={styles.listContainer}>
       {users.map((user, index) => (
@@ -42,6 +47,12 @@ const UserList: React.FC<UserListProps> = ({ users, onDeleteUser }) => {
             <li>
               <strong>Founder:</strong> {user.is_founder ? "Yes" : "No"}
             </li>
+            <button
+              onClick={() => onEditUser(user)}
+              className="bg-yellow-500 text-white p-1 rounded mx-1"
+            >
+              Edit
+            </button>
             <button
               onClick={() => onDeleteUser(user.username)}
               className="bg-red-500 text-white p-1 rounded hover:bg-red-600"
