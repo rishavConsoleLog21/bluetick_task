@@ -11,6 +11,7 @@
 /* Each individual list item */
 .listItem {
   background-color: #fff;
+  color: #000000;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
@@ -33,12 +34,12 @@
 
 .userHeader h3 {
   font-size: 1.4rem;
-  color: #333;
+  color: #000000;
   margin: 0;
 }
 
 .username {
-  color: #666;
+  color: #121212;
   font-size: 1rem;
 }
 

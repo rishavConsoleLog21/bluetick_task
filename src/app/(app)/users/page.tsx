@@ -6,6 +6,7 @@ import styles from "@/app/components/CSS/Home.module.css";
 import UserTable from "@/app/components/User/UserTable";
 import UserCard from "@/app/components/User/UserCard";
 import UserList from "@/app/components/User/UserList";
+import UserForm from "@/app/components/UserForm";
 
 type User = {
   first_name: string;
@@ -41,9 +42,23 @@ export default function Home() {
     fetchUsersData();
   }, [fetchUsersData]);
 
+  // Function to add a new user
+  const handleAddUser = (newUser: User) => {
+    setUsers((prevUsers) => [...prevUsers, newUser]);
+  };
+
+  const handleDeleteUser = (username: string) => {
+    setUsers((prevUsers) =>
+      prevUsers.filter((user) => user.username !== username)
+    );
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>User Data Display</h1>
+
+      {/* User Form to Add New Users */}
+      <UserForm onAddUser={handleAddUser} />
 
       {/* Buttons to switch view modes */}
       <div className={styles.buttonGroup}>
@@ -69,9 +84,17 @@ export default function Home() {
 
       {/* Conditional Rendering of User Data */}
       <div className={styles.content}>
-        {viewMode === "table" && <UserTable users={users} />}
-        {viewMode === "card" && <UserCard users={users} />}
-        {viewMode === "list" && <UserList users={users} />}
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <>
+            {viewMode === "table" && <UserTable users={users} />}
+            {viewMode === "card" && <UserCard users={users} />}
+            {viewMode === "list" && (
+              <UserList users={users} onDeleteUser={handleDeleteUser} />
+            )}
+          </>
+        )}
       </div>
     </div>
   );

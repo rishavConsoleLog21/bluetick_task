@@ -45,7 +45,7 @@ const UserForm: React.FC<UserFormProps> = ({ onAddUser }) => {
 
   return (
     <form onSubmit={handleSubmit} className="mb-4">
-      <div className="flex flex-col space-y-3">
+      <div className="flex flex-col space-y-3 text-black">
         <input
           type="text"
           placeholder="First Name"
@@ -78,14 +78,18 @@ const UserForm: React.FC<UserFormProps> = ({ onAddUser }) => {
           required
           className="p-2 border rounded"
         />
-        <input
-          type="text"
-          placeholder="Marital Status"
+        <select
           value={marital_status}
           onChange={(e) => setMaritalStatus(e.target.value)}
           required
           className="p-2 border rounded"
-        />
+        >
+          <option value="">Select Marital Status</option>
+          <option value="single">Single</option>
+          <option value="married">Married</option>
+          <option value="divorced">Divorced</option>
+        </select>
+
         <div className="flex space-x-2 items-center">
           <input
             type="checkbox"

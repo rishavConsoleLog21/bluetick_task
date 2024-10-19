@@ -44,7 +44,7 @@ const UserList: React.FC<UserListProps> = ({ users, onDeleteUser }) => {
             </li>
             <button
               onClick={() => onDeleteUser(user.username)}
-              className="bg-red-500 text-white p-1 rounded hover:bg-red-600"
+              className="bg-red-500 text-white p-1 rounded"
             >
               Delete
             </button>
