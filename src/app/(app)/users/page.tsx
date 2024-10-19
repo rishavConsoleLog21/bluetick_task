@@ -3,10 +3,11 @@
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import styles from "@/app/components/CSS/Home.module.css";
-import UserTable from "@/app/components/User/UserTable"; // Ensure these components handle editing and deleting
+import UserTable from "@/app/components/User/UserTable";
 import UserCard from "@/app/components/User/UserCard";
 import UserList from "@/app/components/User/UserList";
 import UserForm from "@/app/components/UserForm";
+import Modal from "@/app/components/Modal";
 
 type User = {
   first_name: string;
@@ -22,7 +23,8 @@ export default function Home() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<"table" | "card" | "list">("table");
-  const [editingUser, setEditingUser] = useState<User | null>(null); // Track the user being edited
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Manage modal state
 
   const fetchUsersData = useCallback(async () => {
     try {
@@ -45,6 +47,7 @@ export default function Home() {
 
   const handleAddUser = (newUser: User) => {
     setUsers((prevUsers) => [...prevUsers, newUser]);
+    setIsModalOpen(false); // Close modal after adding
   };
 
   const handleDeleteUser = (username: string) => {
@@ -54,7 +57,8 @@ export default function Home() {
   };
 
   const handleEditUser = (user: User) => {
-    setEditingUser(user); // Set the user to edit
+    setEditingUser(user);
+    setIsModalOpen(true); // Open modal for editing
   };
 
   const handleUpdateUser = (updatedUser: User) => {
@@ -64,17 +68,24 @@ export default function Home() {
       )
     );
     setEditingUser(null); // Reset the editing user
+    setIsModalOpen(false); // Close modal after updating
+  };
+
+  const openAddUserModal = () => {
+    setEditingUser(null); // Clear editing user
+    setIsModalOpen(true); // Open modal for adding user
   };
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>User Data Display</h1>
 
-      <UserForm
-        onAddUser={handleAddUser}
-        editingUser={editingUser}
-        onUpdateUser={handleUpdateUser}
-      />
+      <button
+        onClick={openAddUserModal}
+        className="bg-green-500 text-white p-2 rounded mb-4"
+      >
+        Add User
+      </button>
 
       <div className={styles.buttonGroup}>
         <button
@@ -114,6 +125,15 @@ export default function Home() {
           </>
         )}
       </div>
+
+      {/* Modal for adding/editing user */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <UserForm
+          onAddUser={handleAddUser}
+          editingUser={editingUser}
+          onUpdateUser={handleUpdateUser}
+        />
+      </Modal>
     </div>
   );
 }
