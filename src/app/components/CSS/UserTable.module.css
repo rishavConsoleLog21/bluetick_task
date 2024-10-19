@@ -1,0 +1,79 @@
+/* UserTable.module.css */
+
+/* Container to keep the table responsive */
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+/* Base table styling */
+.responsiveTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  background-color: #fff;
+  font-size: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Header */
+.responsiveTable thead th {
+  background-color: #7077A1; /* Aesthetic green color */
+  color: white;
+  padding: 12px 25px;
+  text-align: left;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+/* Table Data */
+.responsiveTable tbody td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Add alternating background colors for rows */
+.responsiveTable tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .responsiveTable {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    border: 0;
+  }
+
+  /* Responsive table styling for mobile */
+  .responsiveTable thead {
+    display: none;
+  }
+
+  .responsiveTable tbody tr {
+    display: block;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    background-color: white;
+  }
+
+  .responsiveTable tbody td {
+    display: block;
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  .responsiveTable tbody td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    text-align: left;
+    font-weight: bold;
+    text-transform: lowercase;
+  }
+}
