@@ -128,10 +128,8 @@ const UserForm: React.FC<UserFormProps> = ({
           className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 text-black"
         >
           <option value="">Marital Status</option>
-          <option value="Single">Single</option>
+          <option value="Unmarried">Unmarried</option>
           <option value="Married">Married</option>
-          <option value="Divorced">Divorced</option>
-          <option value="Widowed">Widowed</option>
         </select>
         <div className="flex items-center">
           <input
