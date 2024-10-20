@@ -37,6 +37,17 @@ export default function Home() {
         This app displays user data in three different view modes: Table, Card,
         and List.
       </p>
+      <span className="
+        text-sm
+        text-yellow-300
+        font-semibold
+        max-w-md
+        px-5
+        mb-5
+        text-center
+      ">
+        ⚠️To Edit or delete a user, go to List View mode.
+      </span>
       <button
         className="
         bg-blue-600
