@@ -25,7 +25,7 @@ To get started with the application, follow these steps:
 ### With Docker
 
 **Docker Setup**:
-    For Docker setup instructions, please refer to the [README.docker.md](README.docker.md) file.
+    For Docker setup instructions, please refer to the [README.Docker.md](README.Docker.md) file.
 
 ### Without Docker
 
